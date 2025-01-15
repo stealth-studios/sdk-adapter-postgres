@@ -4,20 +4,10 @@
 
 _A powerful PostgreSQL adapter for the Stealth SDK_
 
-<div align="center">
-  <a href="https://github.com/stealth-studios/sdk-adapter-postgres/actions/workflows/ci-ts.yaml">
-    <img src="https://github.com/stealth-studios/sdk-adapter-postgres/actions/workflows/ci-ts.yaml/badge.svg" alt="CI Status">
-  </a>
-  <a href="https://github.com/stealth-studios/sdk-adapter-postgres/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/stealth-studios/sdk-adapter-postgres" alt="License">
-  </a>
-  <a href="https://www.npmjs.com/package/@stealthstudios/sdk-adapter-postgres">
-    <img src="https://img.shields.io/npm/v/@stealthstudios/sdk-adapter-postgres" alt="npm version">
-  </a>
-  <a href="https://www.npmjs.com/package/@stealthstudios/sdk-adapter-postgres">
-    <img src="https://img.shields.io/npm/dm/@stealthstudios/sdk-adapter-postgres" alt="npm downloads">
-  </a>
-</div>
+[![CI Status](https://github.com/stealth-studios/sdk-adapter-postgres/actions/workflows/ci-ts.yaml/badge.svg)](https://github.com/stealth-studios/sdk-adapter-postgres/actions/workflows/ci-ts.yaml)
+[![License](https://img.shields.io/github/license/stealth-studios/sdk-adapter-postgres)](https://github.com/stealth-studios/sdk-adapter-postgres/blob/main/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@stealthstudios/sdk-adapter-postgres)](https://www.npmjs.com/package/@stealthstudios/sdk-adapter-postgres)
+[![npm downloads](https://img.shields.io/npm/dm/@stealthstudios/sdk-adapter-postgres)](https://www.npmjs.com/package/@stealthstudios/sdk-adapter-postgres)
 
 </div>
 
