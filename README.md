@@ -11,6 +11,10 @@ _A powerful PostgreSQL adapter for the Stealth SDK_
 
 </div>
 
+## 📖 Documentation
+
+You may view the documentation for this library [here](https://google.com/docs/adapters/postgres)!
+
 ## 🤝 Contributing
 
 We love your input! We want to make contributing as easy and transparent as possible. Here's how you can help:
