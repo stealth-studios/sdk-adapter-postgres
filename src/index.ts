@@ -4,19 +4,23 @@ import { character, conversation, message, player } from "db/schema";
 import { desc, eq, or } from "drizzle-orm";
 import { migrate } from "drizzle-orm/node-postgres/migrator";
 import path from "path";
+import { NodePgDatabase } from "drizzle-orm/node-postgres";
 
 interface PostgresAdapterOptions {
     connectionString: string;
 }
 
 export default class PostgresAdapter extends Adapter {
+    db: NodePgDatabase;
+
     constructor(options: PostgresAdapterOptions) {
         super(options);
+        this.db = db(options.connectionString);
     }
 
     async init(): Promise<void> {
         try {
-            await migrate(db, {
+            await migrate(this.db, {
                 migrationsFolder: path.join(
                     import.meta.dirname,
                     "..",
@@ -30,7 +34,7 @@ export default class PostgresAdapter extends Adapter {
 
     async getCharacter(hash: string) {
         try {
-            const [data] = await db
+            const [data] = await this.db
                 .select()
                 .from(character)
                 .where(eq(character.hash, hash))
@@ -58,7 +62,7 @@ export default class PostgresAdapter extends Adapter {
                 Object.entries(characterData).filter(([key]) => key !== "hash"),
             );
 
-            const [result] = await db
+            const [result] = await this.db
                 .insert(character)
                 .values({
                     hash: characterData.hash,
@@ -98,7 +102,7 @@ export default class PostgresAdapter extends Adapter {
                 );
             }
 
-            return await db.transaction(async (tx) => {
+            return await this.db.transaction(async (tx) => {
                 const [conversationResult] = await tx
                     .insert(conversation)
                     .values({
@@ -177,7 +181,7 @@ export default class PostgresAdapter extends Adapter {
             filters.push(eq(conversation.persistenceToken, persistenceToken));
         }
 
-        const [result] = await db
+        const [result] = await this.db
             .select({
                 conversation: conversation,
                 character: character,
@@ -193,7 +197,7 @@ export default class PostgresAdapter extends Adapter {
 
         const conversationData = result.conversation;
 
-        const users = await db
+        const users = await this.db
             .select()
             .from(player)
             .where(eq(player.conversationId, conversationData.id));
@@ -217,14 +221,14 @@ export default class PostgresAdapter extends Adapter {
             throw new Error("Conversation not found");
         }
 
-        await db
+        await this.db
             .update(conversation)
             .set({ data: { ...(currentData.data ?? {}), ...data } })
             .where(eq(conversation.id, conversationId));
     }
 
     async getConversationMessages(conversationId: number) {
-        const messages = await db
+        const messages = await this.db
             .select()
             .from(message)
             .where(eq(message.conversationId, conversationId))
@@ -238,19 +242,19 @@ export default class PostgresAdapter extends Adapter {
 
     async setConversationUsers(conversationId: number, users: User[]) {
         for (const user of users) {
-            const [existingPlayer] = await db
+            const [existingPlayer] = await this.db
                 .select()
                 .from(player)
                 .where(eq(player.id, user.id))
                 .limit(1);
 
             if (existingPlayer) {
-                await db
+                await this.db
                     .update(player)
                     .set({ conversationId, name: user.name })
                     .where(eq(player.id, user.id));
             } else {
-                await db.insert(player).values({
+                await this.db.insert(player).values({
                     id: user.id,
                     name: user.name,
                     conversationId,
@@ -263,7 +267,7 @@ export default class PostgresAdapter extends Adapter {
     async addMessageToConversation(
         conversationId: number,
         insertedMessage: {
-            senderId?: number;
+            senderId?: string;
             content: string;
             role: string;
             context: {
@@ -272,7 +276,7 @@ export default class PostgresAdapter extends Adapter {
             }[];
         },
     ) {
-        await db.insert(message).values({
+        await this.db.insert(message).values({
             conversationId,
             senderId: insertedMessage.senderId,
             content: insertedMessage.content,
@@ -283,7 +287,7 @@ export default class PostgresAdapter extends Adapter {
     }
 
     async finishConversation(conversationId: number) {
-        await db
+        await this.db
             .delete(conversation)
             .where(eq(conversation.id, conversationId));
     }

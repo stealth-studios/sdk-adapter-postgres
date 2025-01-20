@@ -1,5 +1,5 @@
 {
-  "id": "4d93b47c-f78c-49fa-9dd4-38e12613374b",
+  "id": "153e7c62-049d-4a4b-b7ee-675a299c9ed0",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -160,7 +160,7 @@
         },
         "senderId": {
           "name": "senderId",
-          "type": "integer",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -232,7 +232,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "text",
           "primaryKey": true,
           "notNull": true
         },

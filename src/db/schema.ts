@@ -38,7 +38,7 @@ export const conversation = pgTable(
 export const player = pgTable(
     "Player",
     {
-        id: serial().primaryKey().notNull(),
+        id: text().primaryKey().notNull(),
         name: text().notNull(),
         conversationId: integer(),
         createdAt: timestamp({ precision: 3, mode: "string" })
@@ -82,7 +82,7 @@ export const message = pgTable(
         id: serial().primaryKey().notNull(),
         content: text().notNull(),
         role: text().notNull(),
-        senderId: integer(),
+        senderId: text(),
         conversationId: integer().notNull(),
         context: jsonb()
             .notNull()
