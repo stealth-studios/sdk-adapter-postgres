@@ -1,6 +1,6 @@
 {
     "name": "@stealthstudios/sdk-adapter-postgres",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "description": "A PostgreSQL adapter for the StealthSDK Core.",
     "main": "dist/index.js",
     "license": "MIT",
@@ -14,7 +14,7 @@
         "prepack": "npm run build"
     },
     "dependencies": {
-        "@stealthstudios/sdk-core": "^1.1.0",
+        "@stealthstudios/sdk-core": "^1.1.1",
         "drizzle-orm": "^0.38.4"
     },
     "devDependencies": {
@@ -26,7 +26,7 @@
         "eslint-plugin-unused-imports": "^4.1.4",
         "jiti": "^2.4.2",
         "prettier": "^3.4.2",
-        "tsup": "^8.3.5",
+        "tsup": "^8.3.6",
         "typescript": "^5.7.3",
         "typescript-eslint": "^8.21.0"
     },
